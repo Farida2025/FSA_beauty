@@ -1,4 +1,5 @@
 FSA Beauty Store - Design Patterns Implementation
+
 📋 Project Overview
 A comprehensive Java e-commerce platform demonstrating six design patterns working together. This project transforms theoretical pattern concepts into a functional cosmetics store with real-world architecture.
 
