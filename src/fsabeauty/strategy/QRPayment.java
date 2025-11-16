@@ -1,4 +1,3 @@
-
 package fsabeauty.strategy;
 
 /**
@@ -42,13 +41,19 @@ public class QRPayment implements PaymentStrategy {
      */
     @Override
     public boolean processPayment(double amount) {
-        System.out.printf(" Processing QR payment of $%.2f via %s%n", amount, paymentApp);
-        System.out.println(" Scanning QR code: " + qrCode);
+        System.out.printf("   Processing QR payment of $%.2f via %s%n", amount, paymentApp);
+        System.out.println("  Scanning QR code: " + getShortQrCode());
+
+        // Validate QR code length
+        if (qrCode == null || qrCode.length() < 4) {
+            System.out.println("  Invalid QR code format!");
+            return false;
+        }
 
         try {
-            System.out.println("Waiting for QR confirmation...");
+            System.out.println("  Waiting for QR confirmation...");
             Thread.sleep(1500);
-            System.out.println(" QR payment confirmed!");
+            System.out.println("  QR payment confirmed!");
             return true;
         } catch (InterruptedException e) {
             Thread.currentThread().interrupt();
@@ -76,6 +81,19 @@ public class QRPayment implements PaymentStrategy {
      */
     @Override
     public String getPaymentDetails() {
-        return String.format("QR Payment via %s (Code: %s...)", paymentApp, qrCode.substring(0, 10));
+        return String.format("QR Payment via %s (Code: %s)", paymentApp, getShortQrCode());
+    }
+
+    /**
+     * Gets a shortened version of the QR code for display purposes
+     * Handles cases where QR code is shorter than expected length
+     *
+     * @return shortened QR code string with ellipsis if applicable
+     */
+    private String getShortQrCode() {
+        if (qrCode == null || qrCode.length() <= 10) {
+            return qrCode;
+        }
+        return qrCode.substring(0, 10) + "...";
     }
 }

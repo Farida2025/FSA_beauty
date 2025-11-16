@@ -37,12 +37,12 @@ public class Product implements ProductSubject {
 
         // Notify when stock is low
         if (newStock > 0 && newStock <= 3) {
-            notifyObservers("⚠️  Low stock alert! '" + name + "' has only " + newStock + " items left.");
+            notifyObservers("  Low stock alert! '" + name + "' has only " + newStock + " items left.");
         }
 
         // Notify when out of stock
         if (oldStock > 0 && newStock == 0) {
-            notifyObservers("😔 Sorry! '" + name + "' is now out of stock. We'll notify you when it's back.");
+            notifyObservers(" Sorry! '" + name + "' is now out of stock. We'll notify you when it's back.");
         }
     }
 
